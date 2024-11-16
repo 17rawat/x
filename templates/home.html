@@ -1,0 +1,54 @@
+{% extends "layout.html" %} {% block content %}
+<div class="bg-gradient-to-b from-gray-50 to-white">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <!-- Hero Section -->
+    <div class="text-center mb-16">
+      <h1 class="text-6xl font-bold text-gray-900 mb-4">Welcome to X</h1>
+      <p class="text-xl text-gray-600 mb-8">
+        Connect, Share, and Engage with the World
+      </p>
+      <div class="space-x-4">
+        <a
+          href="#"
+          class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+        >
+          Get Started
+        </a>
+      </div>
+    </div>
+
+    <!-- Features Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+      <div
+        class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
+      >
+        <div class="text-blue-600 text-4xl mb-4">🌟</div>
+        <h2 class="text-xl font-semibold mb-2">Share Your Story</h2>
+        <p class="text-gray-600">
+          Express yourself and share your thoughts with a global community.
+        </p>
+      </div>
+
+      <div
+        class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
+      >
+        <div class="text-blue-600 text-4xl mb-4">🤝</div>
+        <h2 class="text-xl font-semibold mb-2">Connect</h2>
+        <p class="text-gray-600">
+          Build meaningful connections with people who share your interests.
+        </p>
+      </div>
+
+      <div
+        class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
+      >
+        <div class="text-blue-600 text-4xl mb-4">🚀</div>
+        <h2 class="text-xl font-semibold mb-2">Grow Together</h2>
+        <p class="text-gray-600">
+          Join discussions and be part of an evolving community.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

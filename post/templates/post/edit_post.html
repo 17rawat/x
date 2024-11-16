@@ -1,0 +1,53 @@
+{% extends "layout.html" %} {% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <h1 class="text-3xl text-center text-gray-900 mb-6">Edit Your Vibe</h1>
+  <div class="max-w-md mx-auto">
+    <form action="{% url 'edit_post' post.id %}" method="POST">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="title" class="block text-sm font-medium text-gray-700"
+          >Title</label
+        >
+        <input
+          required
+          type="text"
+          name="title"
+          id="title"
+          value="{{ post.title }}"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+        />
+
+        <label
+          for="content"
+          class="block text-sm font-medium text-gray-700 mt-4"
+          >Content</label
+        >
+        <textarea
+          required
+          name="content"
+          id="content"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+          rows="6"
+        >
+{{ post.content }}
+        </textarea>
+      </div>
+
+      <div class="flex gap-4">
+        <a
+          href="{% url 'post_detail' post.id %}"
+          class="w-full inline-flex justify-center items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-md transition-colors"
+        >
+          Cancel
+        </a>
+        <button
+          type="submit"
+          class="w-full inline-flex justify-center items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors"
+        >
+          Update
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

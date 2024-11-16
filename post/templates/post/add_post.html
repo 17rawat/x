@@ -1,0 +1,43 @@
+{% extends "layout.html" %} {% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  <div class="max-w-md mx-auto">
+    <h1 class="text-3xl text-center text-gray-900 mb-6">
+      What's on your mind?
+    </h1>
+    <form action="{% url 'add_post' %}" method="post">
+      {% csrf_token %}
+      <div class="mb-4">
+        <label for="title" class="block text-sm font-medium text-gray-700"
+          >Title</label
+        >
+        <input
+          required
+          type="text"
+          name="title"
+          id="title"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+        />
+
+        <label
+          for="content"
+          class="block text-sm font-medium text-gray-700 mt-4"
+          >Content</label
+        >
+        <textarea
+          required
+          name="content"
+          id="content"
+          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm"
+          rows="6"
+        ></textarea>
+      </div>
+      <button
+        type="submit"
+        class="w-full inline-flex justify-center items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors"
+      >
+        Add
+      </button>
+    </form>
+  </div>
+</div>
+{% endblock %}
