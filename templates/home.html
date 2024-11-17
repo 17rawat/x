@@ -1,19 +1,28 @@
 {% extends "layout.html" %} {% block content %}
 <div class="bg-gradient-to-b from-gray-50 to-white">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div class="relative z-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
     <!-- Hero Section -->
     <div class="text-center mb-16">
-      <h1 class="text-6xl font-bold text-gray-900 mb-4">Welcome to X</h1>
+      <h1 class="text-6xl text-gray-900 mb-4">Welcome to X</h1>
       <p class="text-xl text-gray-600 mb-8">
         Connect, Share, and Engage with the World
       </p>
       <div class="space-x-4">
+        {% if user.is_authenticated %}
         <a
-          href="#"
+          href="{% url 'post:posts' %}"
+          class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
+        >
+          ⮑ Dashboard
+        </a>
+        {% else %}
+        <a
+          href="{% url 'users:signin' %}"
           class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
         >
           Get Started
         </a>
+        {% endif %}
       </div>
     </div>
 

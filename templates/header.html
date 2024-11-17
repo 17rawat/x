@@ -1,37 +1,24 @@
-<header class="bg-white shadow-sm">
+<header class="bg-white shadow-lg border-b-2 border-gray-100 relative z-10">
   <div class="max-w-7xl mx-auto">
     <div class="flex justify-between items-center p-4">
       <a
         href="/"
-        class="text-xl font-bold text-indigo-600 hover:text-indigo-500 transition-colors"
+        class="text-xl font-bold text-indigo-600 hover:text-indigo-500 transition-colors drop-shadow-sm"
         >X</a
       >
-      <nav class="space-x-6">
-        <a href="/" class="text-gray-600 hover:text-gray-900 transition-colors"
-          >Home</a
+      <nav class="space-x-4 flex items-center">
+        {% if user.is_authenticated %}
+        <span
+          class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full font-medium shadow-sm"
         >
+          Welcome, {{ user.username }}
+        </span>
         <a
-          href="{% url 'about' %}"
-          class="text-gray-600 hover:text-gray-900 transition-colors"
-          >About</a
+          href="{% url 'users:signout' %}"
+          class="px-2 py-1 text-gray-700 hover:text-white hover:bg-red-500 rounded-md transition-all duration-200 border border-gray-300 hover:border-red-500 shadow-sm hover:shadow"
+          >Sign Out</a
         >
-
-        <a
-          href="{% url 'contact' %}"
-          class="text-gray-600 hover:text-gray-900 transition-colors"
-          >Contact</a
-        >
-        <a
-          href="{% url 'posts' %}"
-          class="text-gray-600 hover:text-gray-900 transition-colors"
-          >Posts</a
-        >
-
-        <a
-          href="{% url 'admin:index' %}"
-          class="text-gray-600 hover:text-gray-900 transition-colors"
-          >Admin</a
-        >
+        {% endif %}
       </nav>
     </div>
   </div>

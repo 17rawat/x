@@ -4,7 +4,7 @@
     <h1 class="text-3xl text-center text-gray-900 mb-6">
       What's on your mind?
     </h1>
-    <form action="{% url 'add_post' %}" method="post">
+    <form action="{% url 'post:add_post' %}" method="post">
       {% csrf_token %}
       <div class="mb-4">
         <label for="title" class="block text-sm font-medium text-gray-700"
@@ -31,12 +31,21 @@
           rows="6"
         ></textarea>
       </div>
-      <button
-        type="submit"
-        class="w-full inline-flex justify-center items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors"
-      >
-        Add
-      </button>
+
+      <div class="flex gap-4">
+        <a
+          href="{% url 'post:posts' %}"
+          class="w-full inline-flex justify-center items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-md transition-colors"
+        >
+          Cancel
+        </a>
+        <button
+          type="submit"
+          class="w-full inline-flex justify-center items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors"
+        >
+          Add
+        </button>
+      </div>
     </form>
   </div>
 </div>

@@ -2,7 +2,7 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
   <h1 class="text-3xl text-center text-gray-900 mb-6">Edit Your Vibe</h1>
   <div class="max-w-md mx-auto">
-    <form action="{% url 'edit_post' post.id %}" method="POST">
+    <form action="{% url 'post:edit_post' post.id %}" method="POST">
       {% csrf_token %}
       <div class="mb-4">
         <label for="title" class="block text-sm font-medium text-gray-700"
@@ -35,7 +35,7 @@
 
       <div class="flex gap-4">
         <a
-          href="{% url 'post_detail' post.id %}"
+          href="{% url 'post:post_detail' post.id %}"
           class="w-full inline-flex justify-center items-center px-4 py-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium rounded-md transition-colors"
         >
           Cancel
