@@ -4,14 +4,13 @@ from django.db import migrations
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('post', '0001_initial'),
+        ("post", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelTable(
-            name='post',
-            table='users_posts',
+            name="post",
+            table="users_posts",
         ),
     ]

@@ -10,7 +10,9 @@
   </head>
   <body class="min-h-full flex flex-col">
     {% include "header.html" %}
-    <main class="flex-grow">{% block content %} {% endblock %}</main>
+    <main class="flex-grow overflow-auto pt-16 pb-16">
+      {% block content %} {% endblock %}
+    </main>
     {% include "footer.html" %}
   </body>
 </html>

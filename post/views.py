@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from .models import Post
+from .models import Post, Comment
 # Create your views here.
 
 
@@ -55,3 +55,12 @@ def delete_post(request, id):
 
     post.delete()
     return redirect("post:posts")
+
+
+@login_required(login_url="/users/signin")
+def add_comment(request, id):
+    post = Post.objects.get(id=id)
+    Comment.objects.create(
+        post=post, author=request.user, content=request.POST["content"]
+    )
+    return redirect("post:post_detail", id=id)
