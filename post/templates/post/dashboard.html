@@ -34,6 +34,7 @@
           <span class="text-sm text-gray-500"
             >{{ post.created_at|date:"M d, Y" }}</span
           >
+          {% if post.author == request.user %}
           <div class="space-x-3">
             <a
               href="{% url 'post:edit_post' post.id %}"
@@ -77,6 +78,7 @@
               Delete
             </a>
           </div>
+          {% endif %}
         </div>
       </div>
     </div>
