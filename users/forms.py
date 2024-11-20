@@ -50,3 +50,36 @@ class SignInForm(AuthenticationForm):
             field.widget.attrs["class"] = (
                 "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             )
+
+
+class ForgotPasswordForm(forms.Form):
+    email = forms.EmailField(
+        required=True,
+        widget=forms.EmailInput(
+            attrs={
+                "class": "appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm",
+                "placeholder": "Email",
+            }
+        ),
+    )
+
+
+class ResetPasswordForm(forms.Form):
+    password1 = forms.CharField(
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+                "placeholder": "New Password",
+            }
+        ),
+    )
+    password2 = forms.CharField(
+        required=True,
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm",
+                "placeholder": "Confirm New Password",
+            }
+        ),
+    )

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "django_browser_reload",
 ]
 
+
 TAILWIND_APP_NAME = "theme"
 
 INTERNAL_IPS = [
@@ -122,11 +123,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+# TIME_ZONE = "UTC"
 
 USE_I18N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
@@ -142,3 +143,17 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 TIME_ZONE = "Asia/Kolkata"
 USE_TZ = True  # This enables timezone support
+
+
+# Email Configuration
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.getenv("DEFAULT_FROM_EMAIL")
+SUPPORT_EMAIL = os.getenv("SUPPORT_EMAIL")
+
+SITE_NAME = os.getenv("SITE_NAME")
+SITE_DOMAIN = os.getenv("SITE_DOMAIN")
