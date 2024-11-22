@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
+from .forms import PostForm
 from .models import Post, Comment
 # Create your views here.
 
@@ -8,7 +10,7 @@ from .models import Post, Comment
 @login_required(login_url="/users/signin")
 def posts(request):
     # posts = Post.objects.filter(author=request.user)
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by("-created_at")
     return render(request, "post/dashboard.html", {"posts": posts})
 
 
@@ -21,29 +23,41 @@ def post_detail(request, id):
 @login_required(login_url="/users/signin")
 def add_post(request):
     if request.method == "POST":
-        # print(request)
-        title = request.POST["title"]
-        content = request.POST["content"]
-        Post.objects.create(title=title, content=content, author=request.user)
-        return redirect("post:posts")
+        form = PostForm(request.POST)
+        # print(form.errors)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.author = request.user
+            post.save()
+            return redirect("post:posts")
 
-    return render(request, "post/add_post.html")
+    else:
+        form = PostForm()
+
+    return render(request, "post/add_post.html", {"form": form})
 
 
 @login_required(login_url="/users/signin")
 def edit_post(request, id):
-    post = Post.objects.get(id=id)
+    # post = Post.objects.get(id=id)
+    post = get_object_or_404(Post, id=id)
+
+    # print(post)
 
     if post.author != request.user:
         return redirect("post:posts")
 
     if request.method == "POST":
-        title = request.POST["title"]
-        content = request.POST["content"]
-        Post.objects.filter(id=id).update(title=title, content=content)
-        return redirect("post:post_detail", id=id)
+        form = PostForm(request.POST, instance=post)
 
-    return render(request, "post/edit_post.html", {"post": post})
+        if form.is_valid():
+            form.save()
+            return redirect("post:post_detail", id=id)
+
+    else:
+        form = PostForm(instance=post)
+
+    return render(request, "post/edit_post.html", {"form": form, "post": post})
 
 
 @login_required(login_url="/users/signin")

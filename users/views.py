@@ -1,5 +1,11 @@
 from django.shortcuts import render
-from .forms import SignupForm, SignInForm, ForgotPasswordForm, ResetPasswordForm
+from .forms import (
+    SignupForm,
+    SignInForm,
+    ForgotPasswordForm,
+    ResetPasswordForm,
+    EditProfileForm,
+)
 from django.shortcuts import redirect
 from django.contrib.auth import login, logout
 from django.contrib.auth.models import User
@@ -12,13 +18,16 @@ from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
+from django.shortcuts import get_object_or_404
+
 
 def signup_view(request):
     if request.method == "POST":
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
-            print("user:", user)
+            # print("user:", user)
+
             login(request, user)
             return redirect("post:posts")
 
@@ -157,3 +166,39 @@ def reset_password_view(request, uidb64, token):
 
 def password_reset_success(request):
     return render(request, "users/password_reset_success.html")
+
+
+@login_required(login_url="/users/signin")
+def profile_view(request, username=None):
+    if username:
+        profile = get_object_or_404(User, username=username).profile
+    else:
+        profile = request.user.profile
+
+    return render(request, "users/profile.html", {"profile": profile})
+
+
+@login_required(login_url="/users/signin")
+def edit_profile_view(request):
+    if request.method == "POST":
+        form = EditProfileForm(
+            request.POST, request.FILES, instance=request.user.profile
+        )
+        if form.is_valid():
+            form.save()
+            return redirect("users:profile")
+    else:
+        form = EditProfileForm(instance=request.user.profile)
+
+    return render(request, "users/edit_profile.html", {"form": form})
+
+
+@login_required(login_url="/users/signin")
+def delete_profile_view(request):
+    user = request.user
+    if request.method == "POST":
+        logout(request)
+        user.delete()
+        return redirect("/")
+
+    return render(request, "users/delete_profile.html")

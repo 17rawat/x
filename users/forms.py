@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import Profile
 
 
 class SignupForm(UserCreationForm):
@@ -83,3 +84,25 @@ class ResetPasswordForm(forms.Form):
             }
         ),
     )
+
+
+class EditProfileForm(forms.ModelForm):
+    bio = forms.CharField(
+        widget=forms.Textarea(
+            attrs={
+                "rows": 3,
+            }  # Controls the height of the textarea
+        ),
+    )
+
+    class Meta:
+        model = Profile
+        fields = ["full_name", "bio", "avatar"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for field in self.fields.values():
+            field.widget.attrs["class"] = (
+                "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            )

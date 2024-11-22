@@ -1,0 +1,89 @@
+{% extends "layout.html" %} {% block content %}
+
+<div class="max-w-4xl mx-auto p-8">
+  <a
+    href="{{ request.META.HTTP_REFERER }}"
+    class="text-blue-600 hover:text-blue-700 transition-colors duration-200 text-lg"
+  >
+    ← Back
+  </a>
+
+  <div class="bg-white mt-4 rounded-lg shadow-md p-6">
+    <!-- Profile Header -->
+    <div class="relative flex items-center space-x-6 mb-6">
+      <!-- Profile Picture -->
+      <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-200">
+        {% if profile.avatar %}
+        <img
+          src="{{ profile.avatar.url }}"
+          alt="{{ profile.full_name|default:profile.user.username }}"
+          class="w-full h-full object-cover"
+        />
+        {% else %}
+        <!-- Default Avatar Placeholder -->
+        <div class="w-full h-full flex items-center justify-center bg-gray-300">
+          <span class="text-2xl text-gray-600"
+            >{{ profile.user.username|make_list|first|upper }}</span
+          >
+        </div>
+        {% endif %}
+      </div>
+
+      <div>
+        <h1 class="text-2xl font-bold text-gray-800">
+          {{ profile.full_name|default:profile.user.username }}
+        </h1>
+        <p class="text-gray-600">@{{ profile.user.username }}</p>
+      </div>
+
+      {% if profile.user == request.user %}
+      <div class="absolute top-0 right-0 flex space-x-4">
+        <a
+          href="{% url 'users:edit_profile' %}"
+          class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors"
+        >
+          Edit
+        </a>
+
+        <a
+          href="{% url 'users:delete_profile' %}"
+          class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-md transition-colors"
+        >
+          Delete
+        </a>
+      </div>
+      {% endif %}
+    </div>
+
+    <!-- Profile Details -->
+    <div class="space-y-4 border-t pt-6">
+      <div>
+        <label class="text-sm font-medium text-gray-500">Email</label>
+        <p class="text-gray-800">{{ profile.user.email }}</p>
+      </div>
+
+      <div>
+        <label class="text-sm font-medium text-gray-500">Bio</label>
+        {% if profile.bio %}
+        <p class="text-gray-800 whitespace-pre-line">{{ profile.bio }}</p>
+        {% else %}
+        <p class="text-gray-500 italic">No bio yet</p>
+        {% endif %}
+      </div>
+
+      {% if not profile.full_name or not profile.bio %}
+      <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+        <p class="text-blue-600 text-center">
+          Complete your profile to help others know you better!
+        </p>
+      </div>
+      {% endif %}
+
+      <div class="text-sm text-gray-500 mt-4">
+        Joined: {{ profile.created_at|date:"F j, Y" }}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
