@@ -17,6 +17,7 @@ local_settings.py
 db.sqlite3
 media/
 static/
+staticfiles/
 
 # IDE
 .idea/
@@ -26,3 +27,10 @@ static/
 
 # Node modules (for Tailwind)
 node_modules/
+
+
+
+# Tailwind - ignore generated files but keep source file 
+theme/static/*
+!theme/static_src/
+
