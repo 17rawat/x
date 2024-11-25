@@ -1,77 +1,78 @@
 {% extends "layout.html" %} {% block content %}
-<div class="bg-gradient-to-b from-gray-50 to-white">
-  <div class="relative z-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <!-- Hero Section -->
-    <div class="text-center mb-16">
-      <h1 class="text-6xl text-gray-900 mb-4">Welcome to X</h1>
-      <p class="text-xl text-gray-600 mb-8">
-        Connect, Share, and Engage with the World
+
+<div class="relative z-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <!-- Hero Section -->
+  <div class="text-center mb-16">
+    <h1 class="text-6xl text-gray-900 mb-4">Welcome to X</h1>
+    <p class="text-xl text-gray-600 mb-8">
+      Connect, Share, and Engage with the World
+    </p>
+    <div class="space-x-4">
+      {% if user.is_authenticated %}
+
+      <a
+        href="{% url 'post:posts' %}"
+        class="inline-flex items-center bg-indigo-600 text-white px-8 py-3 rounded-md hover:bg-indigo-700 transition-all duration-300 shadow-sm hover:shadow-md"
+      >
+        <span>View Dashboard</span>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-5 h-5 ml-2"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
+          />
+        </svg>
+      </a>
+      {% else %}
+      <a
+        href="{% url 'users:signin' %}"
+        class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-md hover:bg-indigo-700 transition-all duration-300 shadow-sm hover:shadow-md"
+      >
+        Join Now
+      </a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Features Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+    <div
+      class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
+    >
+      <div class="text-blue-600 text-4xl mb-4">🌟</div>
+      <h2 class="text-xl font-semibold mb-2">Share Your Thoughts</h2>
+      <p class="text-gray-600">
+        Express yourself and share your thoughts with a global community.
       </p>
-      <div class="space-x-4">
-        {% if user.is_authenticated %}
-        <a
-          href="{% url 'post:posts' %}"
-          class="inline-flex items-center bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-5 h-5 mr-2"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-            />
-          </svg>
-          Dashboard
-        </a>
-        {% else %}
-        <a
-          href="{% url 'users:signin' %}"
-          class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300"
-        >
-          Get Started
-        </a>
-        {% endif %}
-      </div>
     </div>
 
-    <!-- Features Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-      <div
-        class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
-      >
-        <div class="text-blue-600 text-4xl mb-4">🌟</div>
-        <h2 class="text-xl font-semibold mb-2">Share Your Thoughts</h2>
-        <p class="text-gray-600">
-          Express yourself and share your thoughts with a global community.
-        </p>
-      </div>
+    <div
+      class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
+    >
+      <div class="text-blue-600 text-4xl mb-4">🤝</div>
+      <h2 class="text-xl font-semibold mb-2">Connect</h2>
+      <p class="text-gray-600">
+        Build meaningful connections with people who share your interests.
+      </p>
+    </div>
 
-      <div
-        class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
-      >
-        <div class="text-blue-600 text-4xl mb-4">🤝</div>
-        <h2 class="text-xl font-semibold mb-2">Connect</h2>
-        <p class="text-gray-600">
-          Build meaningful connections with people who share your interests.
-        </p>
-      </div>
-
-      <div
-        class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
-      >
-        <div class="text-blue-600 text-4xl mb-4">🚀</div>
-        <h2 class="text-xl font-semibold mb-2">Grow Together</h2>
-        <p class="text-gray-600">
-          Join discussions and be part of an evolving community.
-        </p>
-      </div>
+    <div
+      class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300"
+    >
+      <div class="text-blue-600 text-4xl mb-4">🚀</div>
+      <h2 class="text-xl font-semibold mb-2">Grow Together</h2>
+      <p class="text-gray-600">
+        Join discussions and be part of an evolving community.
+      </p>
     </div>
   </div>
 </div>
+
 {% endblock %}

@@ -98,6 +98,9 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ["full_name", "bio", "avatar"]
+        labels = {
+            "full_name": "Name",
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

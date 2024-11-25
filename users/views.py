@@ -12,13 +12,17 @@ from django.contrib.auth.models import User
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
-from .email_content import reset_password_email_content
+from .email_utils import (
+    reset_password_email_content,
+    send_verification_email,
+)
 from django.conf import settings
 from django.core.mail import EmailMessage
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import get_object_or_404
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode  # noqa: F811
 
 
 def signup_view(request):
@@ -26,10 +30,10 @@ def signup_view(request):
         form = SignupForm(request.POST)
         if form.is_valid():
             user = form.save()
-            # print("user:", user)
-
             login(request, user)
-            return redirect("post:posts")
+            send_verification_email(request, user)
+
+            return redirect("users:profile")
 
     else:
         form = SignupForm()
@@ -188,7 +192,9 @@ def edit_profile_view(request):
             form.save()
             return redirect("users:profile")
     else:
-        form = EditProfileForm(instance=request.user.profile)
+        form = EditProfileForm(
+            instance=request.user.profile,
+        )
 
     return render(request, "users/edit_profile.html", {"form": form})
 
@@ -202,3 +208,28 @@ def delete_profile_view(request):
         return redirect("/")
 
     return render(request, "users/delete_profile.html")
+
+
+@login_required(login_url="/users/signin")
+def request_verify_email_view(request):
+    send_verification_email(request, request.user)
+    return redirect("users:profile")
+
+
+def verify_email_view(request, uidb64, token):
+    try:
+        uid = urlsafe_base64_decode(uidb64).decode()
+        user = User.objects.get(pk=uid)
+        # print("Token from verify_email:", token)
+        if default_token_generator.check_token(user, token):
+            user.profile.is_email_verified = True
+            user.profile.save()
+            return redirect("users:profile")
+
+        else:
+            messages.error(request, "The verification link is invalid or has expired.")
+
+    except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+        messages.error(request, "Invalid verification link.")
+
+    return redirect("users:profile")
